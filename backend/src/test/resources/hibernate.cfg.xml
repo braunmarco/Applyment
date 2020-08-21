@@ -17,6 +17,7 @@
 
         <mapping class="de.braun.entities.Person" />
         <mapping class="de.braun.entities.Position" />
+        <mapping class="de.braun.entities.Adress" />
 
     </session-factory>
 </hibernate-configuration>

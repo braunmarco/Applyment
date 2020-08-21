@@ -6,9 +6,7 @@ import java.util.List;
 
 @Entity(name = "ForeignKeyAssoEntity")
 @Table(name = "person", schema = "public", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "ID")}
-)
-
+        @UniqueConstraint(columnNames = "ID")})
 public class Person implements Serializable {
 
     @Id
@@ -23,6 +21,10 @@ public class Person implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "PERSON_ID")
     private List<Position> positionList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PERSON_ID")
+    private List<Adress> adressList;
 
     public Person() {
     }
@@ -62,5 +64,13 @@ public class Person implements Serializable {
 
     public void setPositionList(List<Position> positionList) {
         this.positionList = positionList;
+    }
+
+    public List<Adress> getAdressList() {
+        return adressList;
+    }
+
+    public void setAdressList(List<Adress> adressList) {
+        this.adressList = adressList;
     }
 }

@@ -5,15 +5,14 @@ import java.io.Serializable;
 
 @Entity(name = "ForeignKeyAssoEntity")
 @Table(name = "position", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "position_id")
-})
+        @UniqueConstraint(columnNames = "ID")})
 public class Position implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pos_generator")
     @SequenceGenerator(name = "pos_generator", sequenceName = "pos_seq", allocationSize = 1)
-    @Column(name = "position_id", unique = true, nullable = false)
-    private Long id;
+    @Column(name = "ID", unique = true, nullable = false)
+    private Long positionId;
 
     @ManyToOne
     private Person person;
@@ -31,12 +30,12 @@ public class Position implements Serializable {
         this.worktask = worktask;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPositionId() {
+        return positionId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
     }
 
     public Person getPerson() {
