@@ -1,6 +1,6 @@
 package de.braun;
 
-import de.braun.entities.Adress;
+import de.braun.entities.Address;
 import de.braun.entities.Person;
 import de.braun.entities.Position;
 import de.braun.repositories.PersonService;
@@ -16,18 +16,18 @@ public class TestRunner {
     @Test
     public void testPersist() {
         PersonService pService = new PersonService();
-        Person p = new Person("marco1", "braun");
+        Person p = new Person("marco1", "braun", "braun_marco@gmx.de", "01755944513");
 
         List<Position> positions = new ArrayList<>();
         positions.add(new Position("Softwareengineer", "it-novum GmbH", "SAP Connector"));
 
-        List<Adress> adressList = new ArrayList<>();
-        adressList.add(new Adress("Turmstrasse", "63", "36124", "Eichenzell", "none"));
-        adressList.add(new Adress("Heinrichstrasse", "47", "36043", "Fulda", "none"));
+        List<Address> addressList = new ArrayList<>();
+        addressList.add(new Address("Turmstrasse", "63", "36124", "Eichenzell", "none"));
+        addressList.add(new Address("Heinrichstrasse", "47", "36043", "Fulda", "none"));
 
         // set details
         p.setPositionList(positions);
-        p.setAdressList(adressList);
+        p.setAddressList(addressList);
 
         // store person
         pService.persist(p);

@@ -4,15 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "ForeignKeyAssoEntity")
-@Table(name = "adress", uniqueConstraints = {
+@Table(name = "address", uniqueConstraints = {
         @UniqueConstraint(columnNames = "ID")})
-public class Adress implements Serializable {
+public class Address implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adress_generator")
-    @SequenceGenerator(name = "adress_generator", sequenceName = "adress_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_generator")
+    @SequenceGenerator(name = "address_generator", sequenceName = "address_seq", allocationSize = 1)
     @Column(name = "ID", unique = true, nullable = false)
-    private Long adressId;
+    private Long addressId;
 
     private String streetName;
     private String streetNumber;
@@ -24,10 +24,10 @@ public class Adress implements Serializable {
     private Person person;
 
 
-    public Adress() {
+    public Address() {
     }
 
-    public Adress(String streetName, String streetNumber, String postalCode, String city, String additional) {
+    public Address(String streetName, String streetNumber, String postalCode, String city, String additional) {
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.postalCode = postalCode;
@@ -35,12 +35,12 @@ public class Adress implements Serializable {
         this.additional = additional;
     }
 
-    public Long getAdressId() {
-        return adressId;
+    public Long getAddressId() {
+        return addressId;
     }
 
-    public void setAdressId(Long adressId) {
-        this.adressId = adressId;
+    public void setAddressId(Long adressId) {
+        this.addressId = adressId;
     }
 
     public Person getPerson() {
