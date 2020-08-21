@@ -1,0 +1,3 @@
+de\braun\repositories\PersonRepository.class
+de\braun\entities\Person.class
+de\braun\repositories\IPersonRepository.class
