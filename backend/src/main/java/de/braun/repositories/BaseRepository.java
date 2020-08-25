@@ -9,7 +9,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class BaseRepository<T extends Serializable> {
+public abstract class BaseRepository<T> {
     private Session currentSession;
     private Transaction currentTransaction;
 
@@ -67,7 +67,7 @@ public abstract class BaseRepository<T extends Serializable> {
     public void update(T entity) {
     }
 
-    public T getByCriteria(DetachedCriteria detachedCriteria) {
+    public T getOneByCriteria(DetachedCriteria detachedCriteria) {
         return null;
     }
 

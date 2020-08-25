@@ -37,8 +37,12 @@ public class TestRunner {
     }
 
     @Test
-    public void testReadAll(){
+    public void testReadAll() {
         PersonService pService = new PersonService();
         List<Person> plist = pService.loadAll();
+
+        Person p = pService.getByEmail("braun_marco@gmx.de");
+
+        System.out.println("finish");
     }
 }

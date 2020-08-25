@@ -2,11 +2,13 @@ package de.braun.service;
 
 import de.braun.repositories.BaseRepository;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
-public abstract class BaseService<T extends Serializable> {
+public abstract class BaseService<T> {
     private BaseRepository repository;
 
     public BaseService(BaseRepository<T> repository) {
@@ -28,14 +30,19 @@ public abstract class BaseService<T extends Serializable> {
     }
 
     public void update(T entity) {
-
     }
 
-    public T getByCriteria(DetachedCriteria detachedCriteria) {
-        return null;
+    public T findOneByCriteria(DetachedCriteria detachedCriteria) {
+        repository.openCurrentSession();
+        T result = (T) repository.getOneByCriteria(detachedCriteria);
+        repository.closeCurrentSession();
+        return result;
     }
 
     public List<T> getAllByCriteria(DetachedCriteria detachedCriteria) {
-        return null;
+        repository.openCurrentSession();
+        List<T> result = repository.getAllByCriteria(detachedCriteria);
+        repository.closeCurrentSession();
+        return result;
     }
 }
