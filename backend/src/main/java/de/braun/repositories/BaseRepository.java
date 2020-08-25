@@ -6,7 +6,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.DetachedCriteria;
 
-import java.io.Serializable;
 import java.util.List;
 
 public abstract class BaseRepository<T> {
@@ -47,7 +46,7 @@ public abstract class BaseRepository<T> {
         return currentSession;
     }
 
-    public void setCurrentSession(Session currentSession) {
+    public void setCurrentSession(final Session currentSession) {
         this.currentSession = currentSession;
     }
 
@@ -55,23 +54,23 @@ public abstract class BaseRepository<T> {
         return currentTransaction;
     }
 
-    public void setCurrentTransaction(Transaction currentTransaction) {
+    public void setCurrentTransaction(final Transaction currentTransaction) {
         this.currentTransaction = currentTransaction;
     }
 
-    public void persist(T entity) {
+    public void persist(final T entity) {
         Session session = getCurrentSession();
         session.persist(entity);
     }
 
-    public void update(T entity) {
+    public void update(final T entity) {
     }
 
-    public T getOneByCriteria(DetachedCriteria detachedCriteria) {
+    public T getOneByCriteria(final DetachedCriteria detachedCriteria) {
         return null;
     }
 
-    public List<T> getAllByCriteria(DetachedCriteria detachedCriteria) {
+    public List<T> getAllByCriteria(final DetachedCriteria detachedCriteria) {
         return null;
     }
 

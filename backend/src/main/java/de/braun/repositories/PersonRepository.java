@@ -7,21 +7,14 @@ import java.util.List;
 
 public class PersonRepository extends BaseRepository<Person> {
 
+    @SuppressWarnings("unchecked")
     public List<Person> loadAll() {
-        List<Person> result = getCurrentSession().createCriteria(Person.class).list();
-        return result;
+        return getCurrentSession().createCriteria(Person.class).list();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public List<Person> getAllByCriteria(DetachedCriteria detachedCriteria) {
-        List<Person> pl = detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
-        return pl;
-    }
-
-    @Override
-    public Person getOneByCriteria(DetachedCriteria detachedCriteria) {
-        Person p = (Person) detachedCriteria.getExecutableCriteria(getCurrentSession()).uniqueResult();
-
-        return p;
+    public List<Person> getAllByCriteria(final DetachedCriteria detachedCriteria) {
+        return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
     }
 }

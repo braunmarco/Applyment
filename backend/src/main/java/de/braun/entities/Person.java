@@ -35,7 +35,7 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String name, String surname, String email, String telefon) {
+    public Person(final String name, final String surname, final String email, final String telefon) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -46,7 +46,7 @@ public class Person implements Serializable {
         return personId;
     }
 
-    public void setPersonId(Long personId) {
+    public void setPersonId(final Long personId) {
         this.personId = personId;
     }
 
@@ -54,7 +54,7 @@ public class Person implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -62,7 +62,7 @@ public class Person implements Serializable {
         return surname;
     }
 
-    public void setSurname(String surname) {
+    public void setSurname(final String surname) {
         this.surname = surname;
     }
 
@@ -70,7 +70,7 @@ public class Person implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -78,7 +78,7 @@ public class Person implements Serializable {
         return telefon;
     }
 
-    public void setTelefon(String telefon) {
+    public void setTelefon(final String telefon) {
         this.telefon = telefon;
     }
 
@@ -86,7 +86,7 @@ public class Person implements Serializable {
         return positionList;
     }
 
-    public void setPositionList(List<Position> positionList) {
+    public void setPositionList(final List<Position> positionList) {
         this.positionList = positionList;
     }
 
@@ -94,7 +94,7 @@ public class Person implements Serializable {
         return addressList;
     }
 
-    public void setAddressList(List<Address> addressList) {
+    public void setAddressList(final List<Address> addressList) {
         this.addressList = addressList;
     }
 }

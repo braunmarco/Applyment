@@ -11,13 +11,11 @@ public class PersonService extends BaseService<Person> {
         super(new PersonRepository());
     }
 
-    public Person getByEmail(String email) {
+    public Person getByEmail(final String email) {
         DetachedCriteria detachedCriteria1 = DetachedCriteria
                 .forClass(Person.class)
                 .add(Property.forName("email").eq(email));
 
-        Person p = super.findOneByCriteria(detachedCriteria1);
-
-        return p;
+        return super.findOneByCriteria(detachedCriteria1);
     }
 }
