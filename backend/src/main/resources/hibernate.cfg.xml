@@ -16,7 +16,8 @@
         <property name="format_sql">true</property> <!-- Show SQL formatted -->
 
         <mapping class="de.braun.entities.Person" />
-        <!-- <mapping class="de.braun.entities.Position" /> -->
+        <mapping class="de.braun.entities.Position" />
+        <mapping class="de.braun.entities.Address" />
 
     </session-factory>
 </hibernate-configuration>

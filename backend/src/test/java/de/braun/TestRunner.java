@@ -3,7 +3,7 @@ package de.braun;
 import de.braun.entities.Address;
 import de.braun.entities.Person;
 import de.braun.entities.Position;
-import de.braun.repositories.PersonService;
+import de.braun.service.PersonService;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
@@ -32,7 +32,13 @@ public class TestRunner {
         // store person
         pService.persist(p);
 
-        List<Person> plist = pService.findAll();
+        List<Person> plist = pService.loadAll();
         System.out.println("list of person loaded...");
+    }
+
+    @Test
+    public void testReadAll(){
+        PersonService pService = new PersonService();
+        List<Person> plist = pService.loadAll();
     }
 }
