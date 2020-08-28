@@ -43,4 +43,13 @@ public abstract class BaseService<T> {
 
         return result;
     }
+
+    @SuppressWarnings("unchecked")
+    public T findById(final Class<T> entityClass, final Long id) {
+        repository.openCurrentSessionWithTransaction();
+        T result = (T) repository.findByID(entityClass, id);
+        repository.closeCurrentSessionWithTransaction();
+
+        return result;
+    }
 }

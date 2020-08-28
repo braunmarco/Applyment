@@ -74,6 +74,10 @@ public abstract class BaseRepository<T> {
         return null;
     }
 
+    public T findByID(final Class<T> entityClass, final Long id) {
+        return getCurrentSession().load(entityClass, id);
+    }
+
     public List<T> loadAll() {
         return null;
     }

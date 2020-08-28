@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "ForeignKeyAssoEntity")
-@Table(name = "address", uniqueConstraints = {
+@Table(name = "address", schema = "public", uniqueConstraints = {
         @UniqueConstraint(columnNames = "ID")})
 public class Address implements Serializable {
 
@@ -20,9 +20,8 @@ public class Address implements Serializable {
     private String city;
     private String additional;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
-
 
     public Address() {
     }

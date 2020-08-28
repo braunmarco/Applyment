@@ -24,13 +24,17 @@ public class Person implements Serializable {
 
     private String telefon;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "PERSON_ID")
     private List<Position> positionList;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "PERSON_ID")
     private List<Address> addressList;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "PERSON_ID")
+    private List<Project> projectList;
 
     public Person() {
     }
@@ -96,5 +100,26 @@ public class Person implements Serializable {
 
     public void setAddressList(final List<Address> addressList) {
         this.addressList = addressList;
+    }
+
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personId=" + personId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", telefon='" + telefon + '\'' +
+                ", positionList=" + positionList +
+                ", addressList=" + addressList +
+                '}';
     }
 }
