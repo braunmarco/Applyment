@@ -15,8 +15,13 @@
         <property name="show_sql">true</property> <!-- Show SQL in console -->
         <property name="format_sql">true</property> <!-- Show SQL formatted -->
 
-        <mapping class="de.braun.entities.Person" />
-        <!-- <mapping class="de.braun.entities.Position" /> -->
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
+
+        <mapping class="de.braun.entities.Person"/>
+        <mapping class="de.braun.entities.Position"/>
+        <mapping class="de.braun.entities.Address"/>
+        <mapping class="de.braun.entities.Project"/>
+        <mapping class="de.braun.entities.Technology"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -2,41 +2,47 @@ package de.braun.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity(name = "ForeignKeyAssoEntity")
-@Table(name = "position", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "position_id")
-})
+@Table(name = "position", schema = "public", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "ID")})
 public class Position implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pos_generator")
     @SequenceGenerator(name = "pos_generator", sequenceName = "pos_seq", allocationSize = 1)
-    @Column(name = "position_id", unique = true, nullable = false)
-    private Long id;
+    @Column(name = "ID", unique = true, nullable = false)
+    private Long positionId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
 
     private String title;
     private String company;
-    private String worktask;
+
+    @Temporal(TemporalType.DATE)
+    private Date start_pos;
+
+    @Temporal(TemporalType.DATE)
+    private Date end_pos;
 
     public Position() {
     }
 
-    public Position(String title, String company, String worktask) {
+    public Position(String title, String company, Date start_pos, Date end_pos) {
         this.title = title;
         this.company = company;
-        this.worktask = worktask;
+        this.start_pos = start_pos;
+        this.end_pos = end_pos;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPositionId() {
+        return positionId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
     }
 
     public Person getPerson() {
@@ -63,11 +69,19 @@ public class Position implements Serializable {
         this.company = company;
     }
 
-    public String getWorktask() {
-        return worktask;
+    public Date getStart_pos() {
+        return start_pos;
     }
 
-    public void setWorktask(String worktask) {
-        this.worktask = worktask;
+    public void setStart_pos(Date start_pos) {
+        this.start_pos = start_pos;
+    }
+
+    public Date getEnd_pos() {
+        return end_pos;
+    }
+
+    public void setEnd_pos(Date end_pos) {
+        this.end_pos = end_pos;
     }
 }
