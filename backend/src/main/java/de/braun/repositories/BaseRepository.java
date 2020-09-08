@@ -60,10 +60,12 @@ public abstract class BaseRepository<T> {
 
     public void persist(final T entity) {
         Session session = getCurrentSession();
-        session.persist(entity);
+        session.saveOrUpdate(entity);
     }
 
     public void update(final T entity) {
+        Session session = getCurrentSession();
+        session.merge(entity);
     }
 
     public T getOneByCriteria(final DetachedCriteria detachedCriteria) {

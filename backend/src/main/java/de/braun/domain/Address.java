@@ -1,18 +1,17 @@
-package de.braun.entities;
+package de.braun.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity(name = "ForeignKeyAssoEntity")
-@Table(name = "address", schema = "public", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "ID")})
+@Entity
+@Table(name = "address", schema = "public")
 public class Address implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_generator")
-    @SequenceGenerator(name = "address_generator", sequenceName = "address_seq", allocationSize = 1)
-    @Column(name = "ID", unique = true, nullable = false)
-    private Long addressId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String streetName;
     private String streetNumber;
@@ -20,8 +19,8 @@ public class Address implements Serializable {
     private String city;
     private String additional;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Person person;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "addressList")
+    private Set<Person> personList = new HashSet<>();
 
     public Address() {
     }
@@ -34,20 +33,12 @@ public class Address implements Serializable {
         this.additional = additional;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAddressId(Long adressId) {
-        this.addressId = adressId;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getStreetName() {
@@ -88,5 +79,13 @@ public class Address implements Serializable {
 
     public void setAdditional(String additional) {
         this.additional = additional;
+    }
+
+    public Set<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(Set<Person> personList) {
+        this.personList = personList;
     }
 }

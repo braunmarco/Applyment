@@ -1,4 +1,4 @@
-package de.braun.entities;
+package de.braun.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,8 +15,16 @@ public class Position implements Serializable {
     @Column(name = "ID", unique = true, nullable = false)
     private Long positionId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "position_person",
+            joinColumns = {
+                    @JoinColumn(name = "positionId", referencedColumnName = "ID")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "personId", referencedColumnName = "ID")})
     private Person person;
+
+    //@OneToMany(mappedBy = "position")
+    //private List<PositionRegister> positionRegister;
 
     private String title;
     private String company;
@@ -84,4 +92,12 @@ public class Position implements Serializable {
     public void setEnd_pos(Date end_pos) {
         this.end_pos = end_pos;
     }
+
+    /*public List<PositionRegister> getPositionRegister() {
+        return positionRegister;
+    }
+
+    public void setPositionRegister(List<PositionRegister> positionRegister) {
+        this.positionRegister = positionRegister;
+    }*/
 }

@@ -1,6 +1,6 @@
 package de.braun.service;
 
-import de.braun.entities.Person;
+import de.braun.domain.Person;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package de.braun.repositories;
 
-import de.braun.entities.Person;
+import de.braun.domain.Person;
 import org.hibernate.criterion.DetachedCriteria;
 
 import java.util.List;
@@ -9,7 +9,7 @@ public class PersonRepository extends BaseRepository<Person> {
 
     @SuppressWarnings("unchecked")
     public List<Person> loadAll() {
-        return getCurrentSession().createCriteria(Person.class).list();
+        return getCurrentSession().createQuery("from Person").list();
     }
 
     @SuppressWarnings("unchecked")

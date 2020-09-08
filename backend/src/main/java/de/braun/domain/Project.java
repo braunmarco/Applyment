@@ -1,4 +1,4 @@
-package de.braun.entities;
+package de.braun.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,7 +17,7 @@ public class Project implements Serializable {
     private String title;
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "PROJECT_TECHNOLOGY",
             joinColumns = {@JoinColumn(name = "PROJECT_FK", referencedColumnName = "projectId")},
             inverseJoinColumns = {@JoinColumn(name = "TECHNOLOGY_FK", referencedColumnName = "technologyId")}

@@ -4,22 +4,27 @@ import de.braun.repositories.BaseRepository;
 import org.hibernate.criterion.DetachedCriteria;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class BaseService<T> {
-    private BaseRepository repository;
+    final private BaseRepository<T> repository;
 
     public BaseService(BaseRepository<T> repository) {
         this.repository = repository;
     }
 
-    @SuppressWarnings("unchecked")
     public void persist(T entity) {
         repository.openCurrentSessionWithTransaction();
         repository.persist(entity);
         repository.closeCurrentSessionWithTransaction();
     }
 
-    @SuppressWarnings("unchecked")
+    public void update(T entity) {
+        repository.openCurrentSessionWithTransaction();
+        repository.update(entity);
+        repository.closeCurrentSessionWithTransaction();
+    }
+
     public List<T> loadAll() {
         repository.openCurrentSession();
         List<T> result = repository.loadAll();
@@ -28,14 +33,12 @@ public abstract class BaseService<T> {
         return result;
     }
 
-    public void update(T entity) {
-    }
 
     public T findOneByCriteria(final DetachedCriteria detachedCriteria) {
-        return getAllByCriteria(detachedCriteria).stream().findFirst().get();
+        final Optional<T> result = getAllByCriteria(detachedCriteria).stream().findFirst();
+        return result.isPresent() ? result.get() : null;
     }
 
-    @SuppressWarnings("unchecked")
     public List<T> getAllByCriteria(final DetachedCriteria detachedCriteria) {
         repository.openCurrentSession();
         List<T> result = repository.getAllByCriteria(detachedCriteria);
@@ -44,7 +47,6 @@ public abstract class BaseService<T> {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     public T findById(final Class<T> entityClass, final Long id) {
         repository.openCurrentSessionWithTransaction();
         T result = (T) repository.findByID(entityClass, id);
