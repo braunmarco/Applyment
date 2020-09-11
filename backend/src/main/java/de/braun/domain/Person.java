@@ -29,6 +29,9 @@ public class Person implements Serializable {
     )
     private Set<Address> addressList = new HashSet<>();
 
+    @OneToMany(mappedBy = "person")
+    private Set<CurriculumVitae> curriculumVitaes = new HashSet<>();
+
     public Person() {
     }
 
@@ -87,7 +90,55 @@ public class Person implements Serializable {
         this.addressList = addressList;
     }
 
-    public void addAddress(Address address) {
-        addressList.add(address);
+    public Set<CurriculumVitae> getCurriculumVitaes() {
+        return curriculumVitaes;
+    }
+
+    public void setCurriculumVitaes(Set<CurriculumVitae> curriculumVitaes) {
+        this.curriculumVitaes = curriculumVitaes;
+    }
+
+    public void addAddress(final Address address) {
+        this.addressList.add(address);
+        address.getPersonList().add(this);
+    }
+
+    public void removeAddress(final Address address) {
+        this.getAddressList().remove(address);
+        address.getPersonList().remove(this);
+    }
+
+    public void addCurriculumVitae(final CurriculumVitae curriculumVitae) {
+        curriculumVitaes.add(curriculumVitae);
+    }
+
+    public void CurriculumVitae(final CurriculumVitae curriculumVitae) {
+        curriculumVitaes.remove(curriculumVitae);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        return this.name.equals(person.getName()) &&
+                this.surname.equals(person.surname) &&
+                this.email.equals(person.getEmail()) &&
+                this.telefon.equals(person.getTelefon()) &&
+                this.addressList.equals(person.getAddressList());
+    }
+
+    @Override
+    public int hashCode() {
+        int hashCode = 34;
+
+        return hashCode + 18 +
+                this.name.hashCode() +
+                this.surname.hashCode() +
+                this.email.hashCode() +
+                this.telefon.hashCode() +
+                this.addressList.hashCode();
     }
 }

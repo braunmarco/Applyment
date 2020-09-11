@@ -7,6 +7,7 @@ import org.hibernate.criterion.Property;
 
 public class PersonService extends BaseService<Person> implements IPersonService {
 
+    //todo mittels CDI injecten
     public PersonService() {
         super(new PersonRepository());
     }

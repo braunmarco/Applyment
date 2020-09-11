@@ -1,21 +1,40 @@
 package de.braun;
 
 import de.braun.domain.*;
-import de.braun.service.AddressService;
-import de.braun.service.IPersonService;
-import de.braun.service.PersonService;
-import de.braun.service.PositionService;
+import de.braun.model.AddressType;
+import de.braun.service.*;
 import org.junit.Test;
 
-import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-@Transactional
 public class TestRunner {
+
+
+    @Test
+    public void testStoreCV() throws ParseException {
+        CurriculumVitaeService cvService = new CurriculumVitaeService();
+
+        Address address = new Address("Turmstrasse", "63", "36124", "Eichenzell", "none", AddressType.HOME);
+        Address address2 = new Address("Heinrichstrasse", "47", "36043", "Fulda", "test", AddressType.HOME_2ND);
+        Person p = new Person("marco1", "braun", "braun_marco@gmx.de", "01755944513");
+
+        // position
+        SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
+        Date start = df.parse("01122015");
+        Date end = df.parse("15022021");
+        Position pos = new Position("Softwareengineer", "it-novum GmbH", start, end);
+
+        CurriculumVitae cv = new CurriculumVitae("testcv", p);
+        cv.addPosition(pos);
+
+        p.addCurriculumVitae(cv);
+        p.addAddress(address);
+        p.addAddress(address2);
+
+        cvService.persist(cv);
+    }
 
     @Test
     public void testStorePersonAddress() {
@@ -24,30 +43,20 @@ public class TestRunner {
 
         Person p = new Person("marco1", "braun", "braun_marco@gmx.de", "01755944513");
         //Person p = new Person("marco1", "braun", "chaosteam2000@gmx.de", "01755944513");
-        Address address = new Address("Turmstrasse", "63", "36124", "Eichenzell", "none");
-        Address address2 = new Address("Heinrichstrasse", "47", "36043", "Fulda", "test");
+        Address address = new Address("Turmstrasse", "63", "36124", "Eichenzell", "none", AddressType.HOME);
+        Address address2 = new Address("Heinrichstrasse", "47", "36043", "Fulda", "test", AddressType.HOME_2ND);
 
         // store person
         //Person pCheck = pService.getByEmail("chaosteam2000@gmx.de");
-        Person pCheck = pService.getByEmail("braun_marco@gmx.de");
-        if (pCheck == null) {
-
-            Address a = addressService.find(address);
-            if (a == null) {
-                p.addAddress(address);
-            } else {
-                p.addAddress(a);
-            }
-
-            Address a2 = addressService.find(address2);
-            if (a2 == null) {
-                p.addAddress(address2);
-            } else {
-                p.addAddress(a2);
-            }
-
-            pService.persist(p);
+        Person person = pService.getByEmail("braun_marco@gmx.de");
+        if (person == null) {
+            person = p;
         }
+
+        person.addAddress(address);
+        person.addAddress(address2);
+
+        pService.persist(person);
 
         List<Person> plist = pService.loadAll();
         System.out.println("list of person loaded...");
@@ -87,11 +96,11 @@ public class TestRunner {
         positions.add(new Position("Softwareengineer", "it-novum GmbH", start, end));
 
         List<Address> addressList = new ArrayList<>();
-        addressList.add(new Address("Turmstrasse", "63", "36124", "Eichenzell", "none"));
-        addressList.add(new Address("Heinrichstrasse", "47", "36043", "Fulda", "none"));
+        addressList.add(new Address("Turmstrasse", "63", "36124", "Eichenzell", "none", AddressType.HOME));
+        addressList.add(new Address("Heinrichstrasse", "47", "36043", "Fulda", "test", AddressType.HOME_2ND));
 
-        List<Project> projectList = new ArrayList<>();
-        List<Technology> technologies = new ArrayList<>();
+        Set<Project> projectList = new HashSet<>();
+        Set<Technology> technologies = new HashSet<>();
 
         Project project = new Project("SAP-Connector", "test description");
         Technology technology = new Technology("Java", "Java SDK", "1.8");
@@ -127,11 +136,11 @@ public class TestRunner {
         positions.add(new Position("Softwareengineer", "it-novum GmbH", start, end));
 
         List<Address> addressList = new ArrayList<>();
-        addressList.add(new Address("Turmstrasse", "63", "36124", "Eichenzell", "none"));
-        addressList.add(new Address("Heinrichstrasse", "47", "36043", "Fulda", "none"));
+        addressList.add(new Address("Turmstrasse", "63", "36124", "Eichenzell", "none", AddressType.HOME));
+        addressList.add(new Address("Heinrichstrasse", "47", "36043", "Fulda", "test", AddressType.HOME_2ND));
 
-        List<Project> projectList = new ArrayList<>();
-        List<Technology> technologies = new ArrayList<>();
+        Set<Project> projectList = new HashSet<>();
+        Set<Technology> technologies = new HashSet<>();
 
         Project project = new Project("SAP-Connector2", "test description");
         Technology technology = new Technology("Java", "Java SDK", "1.8");

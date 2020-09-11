@@ -7,6 +7,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Property;
 
 public class ProjectService extends BaseService<Project> {
+    //todo mittels CDI injecten
     public ProjectService() {
         super(new ProjectRepository());
     }

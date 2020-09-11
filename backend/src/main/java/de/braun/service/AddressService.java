@@ -6,6 +6,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Property;
 
 public class AddressService extends BaseService<Address> {
+    //todo mittels CDI injecten
     public AddressService() {
         super(new AddressRepository());
     }

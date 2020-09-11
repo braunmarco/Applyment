@@ -3,28 +3,19 @@ package de.braun.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity(name = "ForeignKeyAssoEntity")
-@Table(name = "position", schema = "public", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "ID")})
+@Entity
+@Table(name = "position", schema = "public")
 public class Position implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pos_generator")
-    @SequenceGenerator(name = "pos_generator", sequenceName = "pos_seq", allocationSize = 1)
-    @Column(name = "ID", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long positionId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "position_person",
-            joinColumns = {
-                    @JoinColumn(name = "positionId", referencedColumnName = "ID")},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "personId", referencedColumnName = "ID")})
-    private Person person;
-
-    //@OneToMany(mappedBy = "position")
-    //private List<PositionRegister> positionRegister;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "positions")
+    private Set<CurriculumVitae> curriculumVitae = new HashSet<>();
 
     private String title;
     private String company;
@@ -53,12 +44,12 @@ public class Position implements Serializable {
         this.positionId = positionId;
     }
 
-    public Person getPerson() {
-        return person;
+    public Set<CurriculumVitae> getCurriculumVitae() {
+        return curriculumVitae;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setCurriculumVitae(Set<CurriculumVitae> curriculumVitae) {
+        this.curriculumVitae = curriculumVitae;
     }
 
     public String getTitle() {
@@ -93,11 +84,26 @@ public class Position implements Serializable {
         this.end_pos = end_pos;
     }
 
-    /*public List<PositionRegister> getPositionRegister() {
-        return positionRegister;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+
+        return this.title.equals(position.getTitle()) &&
+                this.company.equals(position.company) &&
+                this.start_pos.equals(position.getStart_pos()) &&
+                this.end_pos.equals(position.getEnd_pos());
     }
 
-    public void setPositionRegister(List<PositionRegister> positionRegister) {
-        this.positionRegister = positionRegister;
-    }*/
+    @Override
+    public int hashCode() {
+        int hashCode = 98;
+
+        return hashCode + 33 +
+                this.title.hashCode() +
+                this.company.hashCode() +
+                this.start_pos.hashCode() +
+                this.end_pos.hashCode();
+    }
 }

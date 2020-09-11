@@ -1,5 +1,7 @@
 package de.braun.domain;
 
+import de.braun.model.AddressType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -18,6 +20,7 @@ public class Address implements Serializable {
     private String postalCode;
     private String city;
     private String additional;
+    private AddressType type;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "addressList")
     private Set<Person> personList = new HashSet<>();
@@ -25,12 +28,13 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(String streetName, String streetNumber, String postalCode, String city, String additional) {
+    public Address(final String streetName, final String streetNumber, final String postalCode, final String city, final String additional, final AddressType type) {
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.postalCode = postalCode;
         this.city = city;
         this.additional = additional;
+        this.type = type;
     }
 
     public Long getId() {
@@ -87,5 +91,39 @@ public class Address implements Serializable {
 
     public void setPersonList(Set<Person> personList) {
         this.personList = personList;
+    }
+
+    public AddressType getType() {
+        return type;
+    }
+
+    public void setType(AddressType type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return this.streetName.equals(address.streetName) &&
+                this.streetNumber.equals(address.streetNumber) &&
+                this.postalCode.equals(address.postalCode) &&
+                this.city.equals(address.city) &&
+                this.additional.equals(address.additional) &&
+                this.type.equals(address.type);
+    }
+
+    @Override
+    public int hashCode() {
+        int hashCode = 7;
+
+        return hashCode + 31 +
+                streetNumber.hashCode() +
+                streetNumber.hashCode() +
+                postalCode.hashCode() +
+                city.hashCode() +
+                additional.hashCode() +
+                type.hashCode();
     }
 }
