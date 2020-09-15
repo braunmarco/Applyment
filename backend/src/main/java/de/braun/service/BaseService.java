@@ -19,10 +19,12 @@ public abstract class BaseService<T> {
         repository.closeCurrentSessionWithTransaction();
     }
 
-    public void update(T entity) {
+    public T update(T entity) {
         repository.openCurrentSessionWithTransaction();
         repository.update(entity);
         repository.closeCurrentSessionWithTransaction();
+
+        return entity;
     }
 
     public List<T> loadAll() {

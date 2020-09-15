@@ -12,13 +12,27 @@ public class Position implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long positionId;
+    private Long id;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "positions")
     private Set<CurriculumVitae> curriculumVitae = new HashSet<>();
 
     private String title;
     private String company;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "position_positionDetails",
+            joinColumns = @JoinColumn(
+                    name = "pos_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "pos_details_id",
+                    referencedColumnName = "id"
+            )
+    )
+    private Set<PositionDetail> positionDetails = new HashSet<>();
 
     @Temporal(TemporalType.DATE)
     private Date start_pos;
@@ -36,12 +50,12 @@ public class Position implements Serializable {
         this.end_pos = end_pos;
     }
 
-    public Long getPositionId() {
-        return positionId;
+    public Long getId() {
+        return id;
     }
 
-    public void setPositionId(Long positionId) {
-        this.positionId = positionId;
+    public void setId(Long positionId) {
+        this.id = positionId;
     }
 
     public Set<CurriculumVitae> getCurriculumVitae() {
@@ -82,6 +96,14 @@ public class Position implements Serializable {
 
     public void setEnd_pos(Date end_pos) {
         this.end_pos = end_pos;
+    }
+
+    public void addPositionDetails(final PositionDetail positionDetail) {
+        positionDetails.add(positionDetail);
+    }
+
+    public void removePositionDetail(final PositionDetail positionDetail) {
+        positionDetails.remove(positionDetail);
     }
 
     @Override

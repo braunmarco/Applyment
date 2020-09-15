@@ -6,15 +6,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "techology", schema = "public", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "technologyId")
-})
+@Table(name = "techology", schema = "public")
 public class Technology implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long technologyId;
+    private Long id;
 
+    private String group;
     private String title;
     private String description;
     private String version;
@@ -25,18 +24,27 @@ public class Technology implements Serializable {
     public Technology() {
     }
 
-    public Technology(String title, String description, String version) {
+    public Technology(String group, String title, String description, String version) {
+        this.group = group;
         this.title = title;
         this.description = description;
         this.version = version;
     }
 
-    public Long getTechnologyId() {
-        return technologyId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTechnologyId(Long technologyId) {
-        this.technologyId = technologyId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public String getTitle() {

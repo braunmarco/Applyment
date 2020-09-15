@@ -1,6 +1,7 @@
 package de.braun.domain;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table
+@XmlRootElement
 public class CurriculumVitae implements Serializable {
 
     @Id
@@ -26,6 +28,7 @@ public class CurriculumVitae implements Serializable {
                     @JoinColumn(name = "curriculumId", nullable = false, updatable = false)},
             inverseJoinColumns = {
                     @JoinColumn(name = "positionId", nullable = false, updatable = false)})
+
     private Set<Position> positions = new HashSet<>();
 
     public CurriculumVitae() {

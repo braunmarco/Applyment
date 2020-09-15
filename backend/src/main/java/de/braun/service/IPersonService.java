@@ -9,7 +9,7 @@ public interface IPersonService {
 
     Person findById(final Long id);
 
-    void persist(Person entity);
+    <T> Person persist(Person entity);
 
     List<Person> loadAll();
 }

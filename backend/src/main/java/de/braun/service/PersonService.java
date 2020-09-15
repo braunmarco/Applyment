@@ -20,20 +20,16 @@ public class PersonService extends BaseService<Person> implements IPersonService
         return super.findOneByCriteria(detachedCriteria);
     }
 
+    @Deprecated
     @Override
-    public void persist(Person entity) {
-        Person person = getByEmail(entity.getEmail());
-
-        // save
-        if (person == null) {
+    public <T> Person persist(Person entity) {
+        if (entity.getId() == null) {
             super.persist(entity);
+        } else {
+            entity = super.update(entity);
         }
-        // update
-        else {
-            final Long id = person.getId();
-            entity.setId(id);
-            super.update(entity);
-        }
+
+        return entity;
     }
 
     public Person findById(final Long id) {

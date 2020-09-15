@@ -12,7 +12,7 @@ public abstract class BaseRepository<T> {
     private Session currentSession;
     private Transaction currentTransaction;
 
-    public BaseRepository() {
+    protected BaseRepository() {
     }
 
     private static SessionFactory getSessionFactory() {
@@ -63,9 +63,11 @@ public abstract class BaseRepository<T> {
         session.saveOrUpdate(entity);
     }
 
-    public void update(final T entity) {
+    public T update(final T entity) {
         Session session = getCurrentSession();
         session.merge(entity);
+
+        return entity;
     }
 
     public T getOneByCriteria(final DetachedCriteria detachedCriteria) {

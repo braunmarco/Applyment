@@ -5,6 +5,7 @@ import org.hibernate.criterion.DetachedCriteria;
 
 import java.util.List;
 
+//TODO darf nur sichtbar fuer den service sein
 public class ProjectRepository extends BaseRepository<Project> {
     @SuppressWarnings("unchecked")
     public List<Project> loadAll() {

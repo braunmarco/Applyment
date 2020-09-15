@@ -7,19 +7,19 @@ import java.util.Set;
 
 @Entity
 @Table(name = "project", schema = "public", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "projectId")})
+        @UniqueConstraint(columnNames = "id")})
 public class Project implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long projectId;
+    private Long id;
 
     private String title;
     private String description;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "PROJECT_TECHNOLOGY",
-            joinColumns = {@JoinColumn(name = "PROJECT_FK", referencedColumnName = "projectId")},
+            joinColumns = {@JoinColumn(name = "PROJECT_FK", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "TECHNOLOGY_FK", referencedColumnName = "technologyId")}
     )
     private Set<Technology> technologies = new HashSet<>();
@@ -32,12 +32,12 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    public Long getProjectId() {
-        return projectId;
+    public Long getId() {
+        return id;
     }
 
-    public void setProjectId(final Long projectId) {
-        this.projectId = projectId;
+    public void setId(final Long projectId) {
+        this.id = projectId;
     }
 
     public String getTitle() {

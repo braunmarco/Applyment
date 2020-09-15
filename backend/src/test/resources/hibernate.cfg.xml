@@ -21,6 +21,7 @@
         <mapping class="de.braun.domain.Address"/>
         <mapping class="de.braun.domain.CurriculumVitae"/>
         <mapping class="de.braun.domain.Position"/>
+        <mapping class="de.braun.domain.PositionDetail"/>
 
         <!--        <mapping class="de.braun.domain.Project"/>
                 <mapping class="de.braun.domain.Technology"/>

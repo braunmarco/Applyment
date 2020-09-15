@@ -20,19 +20,13 @@ public class ProjectService extends BaseService<Project> {
         return super.findOneByCriteria(detachedCriteria);
     }
 
-    @Override
-    public void persist(Project entity) {
-        Project project = findByTitle(entity.getTitle());
-
-        // save
-        if (project == null) {
+    public <T> Project persist(Project entity) {
+        if (entity.getId() == null) {
             super.persist(entity);
+        } else {
+            entity = super.update(entity);
         }
-        // update
-        else {
-            final Long id = project.getProjectId();
-            entity.setProjectId(id);
-            super.update(entity);
-        }
+
+        return entity;
     }
 }

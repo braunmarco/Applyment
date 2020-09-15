@@ -13,6 +13,25 @@ public class TestRunner {
 
 
     @Test
+    public void testFindAndUpdateCV() throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
+        Date start = df.parse("06062015");
+        Date end = df.parse("10062015");
+
+        Position pos = new Position("Softwareengineer", "Dekra Arbeit GmbH", start, end);
+        PositionDetail positionDetail = new PositionDetail("Entwicklung eines Hilfesystems für Izar@Net v.2");
+
+        pos.addPositionDetails(positionDetail);
+
+        CurriculumVitaeService cvService = new CurriculumVitaeService();
+        CurriculumVitae cv = cvService.find("testcv");
+
+        cv.addPosition(pos);
+
+        CurriculumVitae updated = cvService.save(cv);
+    }
+
+    @Test
     public void testStoreCV() throws ParseException {
         CurriculumVitaeService cvService = new CurriculumVitaeService();
 
@@ -24,16 +43,21 @@ public class TestRunner {
         SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
         Date start = df.parse("01122015");
         Date end = df.parse("15022021");
-        Position pos = new Position("Softwareengineer", "it-novum GmbH", start, end);
+
+        Position pos = new Position("Softwareengineer", "Dekra Arbeit GmbH", start, end);
+        PositionDetail positionDetail = new PositionDetail("Entwicklung von Kettle Steps zum Serialisieren von SAP-Daten aus SAP R/3 bzw. SAP BW");
+        PositionDetail positionDetail1 = new PositionDetail("Betreuung des SAP R/3 bzw. SAP BW Testsystems");
 
         CurriculumVitae cv = new CurriculumVitae("testcv", p);
+        pos.addPositionDetails(positionDetail);
+        pos.addPositionDetails(positionDetail1);
         cv.addPosition(pos);
 
         p.addCurriculumVitae(cv);
         p.addAddress(address);
         p.addAddress(address2);
 
-        cvService.persist(cv);
+        cvService.save(cv);
     }
 
     @Test
@@ -103,7 +127,7 @@ public class TestRunner {
         Set<Technology> technologies = new HashSet<>();
 
         Project project = new Project("SAP-Connector", "test description");
-        Technology technology = new Technology("Java", "Java SDK", "1.8");
+        Technology technology = new Technology("Programmiersprachen", "Java", "Java SDK", "1.8");
 
         technologies.add(technology);
         project.setTechnologies(technologies);
@@ -143,7 +167,7 @@ public class TestRunner {
         Set<Technology> technologies = new HashSet<>();
 
         Project project = new Project("SAP-Connector2", "test description");
-        Technology technology = new Technology("Java", "Java SDK", "1.8");
+        Technology technology = new Technology("Programmiersprachen", "Java", "Java SDK", "1.8");
 
         technologies.add(technology);
         project.setTechnologies(technologies);
