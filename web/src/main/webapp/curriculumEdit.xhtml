@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<f:loadBundle var="msg" basename="de.braun.messages"/>
+
+<h:head>
+    <title>Title</title>
+</h:head>
+
+<h:body>
+    <h:form id="editCurriculumn">
+        <p:panelGrid columns="2" cellpadding="10" cellspacing="1" border="1">
+            <f:facet name="header">
+                #{msg['personal.data.header']}
+            </f:facet>
+
+            <h:outputText value="#{msg['personal.data.name']}"/>
+            <h:inputText value="#{personBean.person.name}"/>
+
+            <h:outputText value="#{msg['personal.data.surname']}"/>
+            <h:inputText value="#{personBean.person.surname}"/>
+
+            <h:outputText value="#{msg['personal.data.email']}"/>
+            <h:outputText value="#{personBean.person.email}"/>
+
+        </p:panelGrid>
+
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+        <h:outputText value="#{msg['position.headline.positions']}"/>
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+
+        <p:growl id="msgs" showDetail="true"/>
+
+        <p:dataTable value="#{curriculumEditBean.selectedCurriculumVitae.positions}" editable="true" var="item"
+                     styleClass="positionDetailsTable"
+                     headerClass="positionDetailsTableHeader"
+                     rowClasses="positionDetailsTableOddRow,positionDetailsTableEvenRow">
+
+            <p:ajax event="rowEdit" listener="#{curriculumEditBean.onRowEdit}" update=":editCurriculumn:msgs"/>
+            <p:ajax event="rowEditCancel" listener="#{curriculumEditBean.onRowCancel}"/>
+
+            <p:column headerText="#{msg['position.header.startpos']}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{item.start_pos}" rendered="#{item.start_pos != null}">
+                            <f:convertDateTime pattern="#{curriculumBean.datePattern}"/>
+                        </h:outputText>
+                    </f:facet>
+
+                    <f:facet name="input">
+                        <p:inputText id="startPos" value="#{item.start_pos}" rendered="#{item.start_pos != null}">
+                            <f:convertDateTime pattern="#{curriculumBean.datePattern}"/>
+                        </p:inputText>
+
+                    </f:facet>
+                </p:cellEditor>
+                <h:message for="startPos" style="color:red"/>
+            </p:column>
+
+            <p:column headerText="#{msg['position.header.endpos']}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{item.end_pos}" rendered="#{item.start_pos != null}">
+                            <f:convertDateTime pattern="#{curriculumBean.datePattern}"/>
+                        </h:outputText>
+                    </f:facet>
+
+                    <f:facet name="input">
+                        <h:inputText id="endPos" value="#{item.end_pos}" rendered="#{item.start_pos != null}">
+                            <f:convertDateTime pattern="#{curriculumBean.datePattern}"/>
+                        </h:inputText>
+                    </f:facet>
+                </p:cellEditor>
+                <h:message for="endPos" style="color:red"/>
+            </p:column>
+
+            <p:column headerText="#{msg['position.header.company']}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{item.company}"/>
+                    </f:facet>
+
+                    <f:facet name="input">
+                        <h:inputText value="#{item.company}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="#{msg['position.header.title']}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{item.title}"/>
+                    </f:facet>
+
+                    <f:facet name="input">
+                        <h:inputText value="#{item.title}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="#{msg['position.header.action']}" style="width:6rem">
+                <p:rowEditor editTitle="#{msg['position.button.edit.row']}"
+                             cancelTitle="#{msg['position.button.cancel.row']}"
+                             saveTitle="#{msg['position.button.save.row']}">
+                </p:rowEditor>
+            </p:column>
+
+        </p:dataTable>
+
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+
+        <p:commandButton value="#{msg['position.button.edit.cancel']}" action="#{curriculumEditBean.back}"
+                         icon="pi pi-times"/>
+
+    </h:form>
+</h:body>
+</html>

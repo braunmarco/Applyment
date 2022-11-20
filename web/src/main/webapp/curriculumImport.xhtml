@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:loadBundle var="msg" basename="de.braun.messages"/>
+
+<h:head>
+    <title>Title</title>
+</h:head>
+
+<h:body>
+    <h1>#{msg['curriculum.serviceimport.header.import']}</h1>
+    <h:outputText value="&lt;br/&gt;" escape="false"/>
+    <h:form enctype="multipart/form-data">
+        <p:panelGrid columns="3" cellpadding="10" cellspacing="1">
+            <h:outputLabel value="#{msg['curriculum.serviceimport.label.import']}"/>
+            <h:inputText value="#{serviceBean.filename}"/>
+            <h:inputFile value="#{serviceBean.uploadFile}">
+                <f:ajax listener="#{serviceBean.updateFilename}"/>
+            </h:inputFile>
+
+        </p:panelGrid>
+
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+
+        <p:commandButton value="#{msg['curriculum.serviceimport.button.import']}" action="#{serviceBean.importData}"
+                         style="margin-left: 10px"/>
+        <p:commandButton value="#{msg['curriculum.button.back']}" action="#{serviceBean.back}" icon="pi pi-backward"
+                         style="margin-left: 10px"/>
+    </h:form>
+</h:body>
+</html>

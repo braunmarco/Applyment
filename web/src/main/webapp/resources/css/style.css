@@ -1,0 +1,46 @@
+.positionDetailsTable {
+    border-collapse: collapse;
+    border: 1px solid #000000;
+}
+
+.positionDetailsTableHeader {
+    text-align: center;
+    background: none repeat scroll 0 0 #B5B5B5;
+    border-bottom: 1px solid #000000;
+    padding: 2px;
+}
+
+.positionDetailsTableOddRow {
+    text-align: left;
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+
+.positionDetailsTableEvenRow {
+    text-align: left;
+    background: none repeat scroll 0 0 #D3D3D3;
+}
+
+.errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+.login {
+    text-align: center;
+    top: 40%;
+    display: flex;
+    /*align-items: center;*/
+    justify-content: center;
+    /*height: 100vh;*/
+}
+
+.buttonLogin {
+    text-align: center;
+}
+
+.ui-button-icon-left .ui-icon .ui-c pi .pi-pencil {
+    color: #2196f3;
+    background: #fff;
+}
+
+/*ui-button-icon-left ui-icon ui-c pi pi-print*/

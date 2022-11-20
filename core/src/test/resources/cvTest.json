@@ -1,0 +1,34 @@
+{
+  "title": "Hello world!",
+  "person": {
+    "name": "Mueller",
+    "surname": "Peter",
+    "email": "p.mueller@gmx.de",
+    "addressList": [
+      {
+        "streetName": "Musterstrasse",
+        "streetNumber": "4711",
+        "postalCode": "12345",
+        "city": "Musterstadt",
+        "additional": "",
+        "type": 0
+      }
+    ]
+  },
+  "positions": [
+    {
+      "title": "SoftwareEntwickler",
+      "company": "it-novum GmbH",
+      "positionDetails": [
+        {
+          "title": "Entwicklung von Kettle Steps zum Serialisieren von\nSAP-Daten aus SAP R/3 bzw. SAP BW"
+        },
+        {
+          "title": "Betreuung des SAP R/3 bzw. SAP BW Testsystems"
+        }
+      ],
+      "start_pos": "01122015",
+      "end_pos": "11012021"
+    }
+  ]
+}
