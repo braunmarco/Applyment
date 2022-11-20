@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<f:loadBundle var="msg" basename="de.braun.messages"/>
+<h:head>
+    <title>Title</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <p:panelGrid columns="2" cellpadding="10" cellspacing="1"
+                     styleClass="positionDetailsTable"
+                     headerClass="positionDetailsTableHeader"
+                     rowClasses="positionDetailsTableOddRow,positionDetailsTableEvenRow">
+
+            <f:facet name="header">
+                <h:outputText value="#{msg['position.detail.header.title']}"/>
+            </f:facet>
+
+            <h:outputText value="#{msg['position.detail.company']}"/>
+            <h:outputText value="#{positionBean.selectedPosition.company}"/>
+
+            <h:outputText value="#{msg['position.detail.positiontitle']}"/>
+            <h:outputText value="#{positionBean.selectedPosition.title}"/>
+
+        </p:panelGrid>
+
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+
+        <p:dataTable value="#{positionBean.selectedPosition.positionDetails}" var="item"
+                     styleClass="positionDetailsTable"
+                     headerClass="positionDetailsTableHeader"
+                     rowClasses="positionDetailsTableOddRow,positionDetailsTableEvenRow">
+
+            <p:column headerText="#{msg['position.detail.header.id']}" width="20px">
+                #{item.id}
+            </p:column>
+
+            <p:column headerText="#{msg['position.detail.header.positiontask']}">
+                #{item.title}
+            </p:column>
+        </p:dataTable>
+
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+        <p:commandButton value="#{msg['curriculum.button.back']}" action="#{positionBean.back}" icon="pi pi-backward"/>
+    </h:form>
+</h:body>
+
+</html>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<f:loadBundle var="msg" basename="de.braun.messages"/>
+
+<h:head>
+    <title>Title</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <h1>#{msg['curriculum.header.cvdetails']}</h1>
+
+        <p:panelGrid columns="2" cellpadding="10" cellspacing="1"
+                     styleClass="positionDetailsTable"
+                     headerClass="positionDetailsTableHeader"
+                     rowClasses="positionDetailsTableOddRow,positionDetailsTableEvenRow">
+
+            <f:facet name="header">
+                <h:outputText value="#{msg['personal.data.header']}"/>
+            </f:facet>
+
+            <h:outputText value="#{msg['personal.data.name']}"/>
+            <h:outputText value="#{personBean.person.name}"/>
+
+            <h:outputText value="#{msg['personal.data.surname']}"/>
+            <h:outputText value="#{personBean.person.surname}"/>
+
+            <h:outputText value="#{msg['personal.data.email']}"/>
+            <h:outputText value="#{personBean.person.email}"/>
+        </p:panelGrid>
+
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+
+        <!-- details of positions -->
+        <p:dataTable value="#{curriculumBean.selectedCurriculumVitae.positions}" var="item"
+                     styleClass="positionDetailsTable"
+                     headerClass="positionDetailsTableHeader"
+                     rowClasses="positionDetailsTableOddRow,positionDetailsTableEvenRow">
+
+            <p:column headerText="#{msg['curriculum.header.id']}">
+                #{item.id}
+            </p:column>
+
+            <p:column headerText="#{msg['position.header.startpos']}">
+                <h:outputText value="#{item.start_pos}">
+                    <f:convertDateTime pattern="#{curriculumBean.datePattern}"/>
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="#{msg['position.header.endpos']}">
+                <h:outputText value="#{item.end_pos}">
+                    <f:convertDateTime pattern="#{curriculumBean.datePattern}"/>
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="#{msg['position.header.company']}">
+                #{item.company}
+            </p:column>
+
+            <p:column headerText="#{msg['position.header.title']}">
+                #{item.title}
+            </p:column>
+
+            <p:column headerText="#{msg['position.header.action']}">
+                <p:commandButton id="view" action="#{positionBean.viewListener}" icon="pi pi-eye"
+                                 style="margin-left: 10px">
+                    <f:setPropertyActionListener target="#{positionBean.selectedPosition}" value="#{item}"/>
+                    <p:tooltip for="view" value="#{msg['curriculum.button.view']}" position="left"/>
+                </p:commandButton>
+
+                <p:commandButton id="edit" action="#{positionBean.editListener}" icon="pi pi-pencil"
+                                 style="margin-left: 10px">
+                    <f:setPropertyActionListener target="#{positionBean.selectedPosition}" value="#{item}"/>
+                    <p:tooltip for="edit" value="#{msg['curriculum.button.edit']}" position="left"/>
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+        <p:commandButton value="#{msg['curriculum.button.back']}" action="#{curriculumBean.back}"
+                         icon="pi pi-backward"/>
+
+        <!-- details of projects -->
+    </h:form>
+</h:body>
+</html>

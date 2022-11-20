@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<f:loadBundle var="msg" basename="de.braun.messages"/>
+<h:head>
+    <title>Title</title>
+</h:head>
+
+<h:body>
+    <h1>#{msg['curriculum.title']}</h1>
+    <h:form>
+        <h3>#{msg['curriculum.overview.title']}</h3>
+
+        <p:dataTable value="#{curriculumBean.curriculumVitaeList}" var="item"
+                     styleClass="positionDetailsTable"
+                     headerClass="positionDetailsTableHeader"
+                     rowClasses="positionDetailsTableOddRow,positionDetailsTableEvenRow">
+
+            <p:column headerText="#{msg['curriculum.header.id']}">
+                #{item.id}
+            </p:column>
+
+            <p:column headerText="#{msg['curriculum.header.title']}">
+                #{item.title}
+            </p:column>
+
+            <p:column headerText="#{msg['curriculum.header.action']}">
+                <!-- use css style class -->
+                <p:commandButton id="view" action="#{curriculumBean.viewListener}" icon="pi pi-eye"
+                                 style="margin-left: 10px">
+                    <f:setPropertyActionListener target="#{curriculumBean.selectedCurriculumVitae}" value="#{item}"/>
+                    <p:tooltip for="view" value="#{msg['curriculum.button.view']}" position="left"/>
+                </p:commandButton>
+
+                <p:commandButton id="print" action="#{curriculumBean.printListener}" icon="pi pi-print"
+                                 style="margin-left: 10px">
+                    <f:setPropertyActionListener target="#{curriculumBean.selectedCurriculumVitae}" value="#{item}"/>
+                    <p:tooltip for="print" value="#{msg['curriculum.button.print']}" position="left"/>
+                </p:commandButton>
+
+                <p:commandButton id="edit" action="#{curriculumEditBean.editListener}" icon="pi pi-pencil"
+                                 style="margin-left: 10px">
+                    <f:setPropertyActionListener target="#{curriculumEditBean.selectedCurriculumVitae}"
+                                                 value="#{item}"/>
+                    <p:tooltip for="edit" value="#{msg['curriculum.button.edit']}" position="left"/>
+                </p:commandButton>
+
+            </p:column>
+        </p:dataTable>
+
+        <h:outputText value="&lt;br/&gt;" escape="false"/>
+        <!-- use css style class -->
+        <p:commandButton id="new" actionListener="#{curriculumBean.newListener}" icon="pi pi-plus"
+                         style="margin-left: 10px">
+            <p:tooltip for="new" value="#{msg['curriculum.button.new']}" position="left"/>
+        </p:commandButton>
+        <p:commandButton id="import" action="#{curriculumBean.importListener}" icon="pi pi-upload"
+                         style="margin-left: 10px">
+            <p:tooltip for="import" value="#{msg['curriculum.button.import']}" position="left"/>
+        </p:commandButton>
+        <p:commandButton id="logout" action="#{loginBean.logout}" icon="pi pi-sign-out" style="margin-left: 10px">
+            <p:tooltip for="logout" value="#{msg['curriculum.button.logout']}" position="left"/>
+        </p:commandButton>
+    </h:form>
+</h:body>
+</html>
